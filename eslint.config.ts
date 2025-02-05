@@ -1,11 +1,13 @@
-import pluginVue from 'eslint-plugin-vue'
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import pluginVue from 'eslint-plugin-vue';
+import {
+  defineConfigWithVueTs,
+  vueTsConfigs,
+  configureVueProject,
+} from '@vue/eslint-config-typescript';
+import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
+import pluginPrettier from 'eslint-plugin-prettier';
 
-// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
-// import { configureVueProject } from '@vue/eslint-config-typescript'
-// configureVueProject({ scriptLangs: ['ts', 'tsx'] })
-// More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
+configureVueProject({ scriptLangs: ['ts', 'tsx'] });
 
 export default defineConfigWithVueTs(
   {
@@ -21,4 +23,18 @@ export default defineConfigWithVueTs(
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
   skipFormatting,
-)
+
+  {
+    name: 'app/prettier',
+    plugins: {
+      prettier: pluginPrettier,
+    },
+  },
+
+  {
+    rules: {
+      'no-unused-vars': 'warn',
+      'object-curly-spacing': ['error', 'always'],
+    },
+  },
+);
