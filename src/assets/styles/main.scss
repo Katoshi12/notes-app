@@ -1,2 +1,50 @@
-@import 'base.scss';
-@import 'typography.scss';
+@use 'base.scss';
+@use 'typography.scss';
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  background: var(--color-dark);
+  color: var(--color-white);
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1760px;
+  @media (max-width: 1367px) {
+    max-width: 1200px;
+  }
+  @media (max-width: 768px) {
+    max-width: 688px;
+  }
+  @media (max-width: 360px) {
+    max-width: 320px;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 32px;
+  cursor: pointer;
+  background: var(--color-green-light);
+  color: var(--color-white);
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background: var(--color-green-middle);
+  }
+}
+
+.btn__icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+}
+
+
+.btn-rounded {}
