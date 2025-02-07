@@ -67,3 +67,18 @@ body {
     background: var(--color-green-dark);
   }
 }
+
+.text-gray {
+  color: var(--color-gray);
+}
+
+.text-hover {
+  color: var(--color-green-light);
+  transition: color 0.2s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-white);
+  }
+}

@@ -1,6 +1,18 @@
-import axios from 'axios';
+import axios from 'axios'
 
-axios.defaults.baseURL = 'https://dist.nd.ru/api';
-axios.defaults.headers.common['Content-Type'] = 'application/json';
+const api = axios.create({
+  baseURL: 'https://dist.nd.ru/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 
-export default axios;
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
+export default api

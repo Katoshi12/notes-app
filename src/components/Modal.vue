@@ -1,13 +1,13 @@
 <script setup lang="ts">
 defineProps({
   modelValue: Boolean,
-});
+})
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue'])
 
 const closeModal = (): void => {
-  emit('update:modelValue', false);
-};
+  emit('update:modelValue', false)
+}
 </script>
 
 <template>

@@ -1,46 +1,64 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import BaseInput from '@/components/base/BaseInput.vue';
-import axios from '@/utils/axios.ts';
+import { reactive, ref, defineEmits } from 'vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import axios from '@/utils/axios.ts'
+import { useRouter } from 'vue-router'
 
-const email = ref<string>('');
-const password = ref<string>('');
+const router = useRouter()
+const emit = defineEmits(['loginSuccess', 'switchToRegister'])
 
-const emailError = ref<string>('');
-const passwordError = ref<string>('');
-const errorAuth = ref<string>('');
+interface LoginInterface {
+  email: string
+  password: string
+}
 
-const handleSubmit = async () => {
-  emailError.value = '';
-  passwordError.value = '';
+const form = reactive<LoginInterface>({
+  email: '',
+  password: '',
+})
+
+const emailError = ref<string>('')
+const passwordError = ref<string>('')
+const errorAuth = ref<string>('')
+
+const handleSubmit = async (): Promise<void> => {
+  emailError.value = ''
+  passwordError.value = ''
   errorAuth.value = ''
 
-  await axios.post('/auth', {
-    email: email.value,
-    password: password.value,
-  }).then((response) => {
-    console.log(response);
-  }).catch((error) => {
-    if (error.response) {
-      const { message, statusCode } = error.response.data
-
-      if (statusCode === 404) {
-        errorAuth.value = message;
+  await axios
+    .post('/auth', form)
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Ошибка при получении токена')
       }
+      const token = response.data.accessToken
 
-      message.forEach((msg: string) => {
-        console.log(msg);
-        if (msg.includes('E-Mail') || msg.includes('адрес электронной почты')) {
-          emailError.value = msg;
-        }
-        if (msg.includes('Пароль')) {
-          passwordError.value = msg;
-        }
-      })
+      localStorage.setItem('token', token)
+      emit('loginSuccess')
+      router.push('/dashboard')
+    })
+    .catch((error) => {
+      if (error.response) {
+        const { message, statusCode } = error.response.data
 
-    }
-  })
-};
+        if (statusCode === 404) {
+          errorAuth.value = message
+        }
+
+        message.forEach((msg: string) => {
+          if (msg.includes('E-Mail') || msg.includes('адрес электронной почты')) {
+            emailError.value = msg
+          }
+          if (msg.includes('Пароль')) {
+            passwordError.value = msg
+          }
+        })
+      } else {
+        errorAuth.value = 'Ошибка соединения с сервером'
+      }
+    })
+}
 </script>
 
 <template>
@@ -48,20 +66,21 @@ const handleSubmit = async () => {
     <h2 class="login-form__title">Вход в ваш аккаунт</h2>
 
     <form @submit.prevent="handleSubmit" class="login-form__container">
-      <BaseInput
-        v-model="email"
+
+      <base-input
+        v-model="form.email"
         label="Email"
-        class="text-gray text-small"
+        class="text-gray"
         placeholder="Введите email"
         :error-message="emailError"
       />
 
-      <BaseInput
-        v-model="password"
+      <base-input
+        v-model="form.password"
         :show-toggle="true"
         label="Пароль"
         type="password"
-        class="login-form__field text-gray text-small"
+        class="login-form__field text-gray"
         placeholder="Введите пароль"
         :error-message="passwordError"
       />
@@ -69,16 +88,19 @@ const handleSubmit = async () => {
       <div class="login-form__footer">
         <div class="login-form__register">
           <span class="text-small text-gray">У вас нет аккаунта? </span>
-          <a href="#" class="text-small-bold text-green">Зарегистрируйтесь</a>
+          <span
+            class="text-small-bold text-hover"
+            @click.prevent="$emit('switchToRegister')"
+          >
+            Зарегистрируйтесь
+          </span>
         </div>
 
         <button class="btn text-normal btn-mob" type="submit">Войти</button>
-
       </div>
       <div v-if="errorAuth" class="login-form__error text-small">
         {{ errorAuth }}
       </div>
-
     </form>
   </section>
 </template>
@@ -129,13 +151,5 @@ const handleSubmit = async () => {
     padding: 8px 12px;
     font-size: 14px;
   }
-}
-
-.text-gray {
-  color: var(--color-gray);
-}
-
-.text-green {
-  color: var(--color-green-light);
 }
 </style>
