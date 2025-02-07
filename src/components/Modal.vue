@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps({
-  modelValue: Boolean
-})
+  modelValue: Boolean,
+});
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -22,7 +22,12 @@ const closeModal = (): void => {
       <div class="modal__overlay" @click="closeModal"></div>
 
       <div class="modal__content">
-        <button class="btn-rounded modal__close" type="button" aria-label="Закрыть окно" @click="closeModal">
+        <button
+          class="btn-rounded modal__close"
+          type="button"
+          aria-label="Закрыть окно"
+          @click="closeModal"
+        >
           <img src="@/assets/icons/close.svg" alt="close" />
         </button>
 
@@ -57,7 +62,7 @@ const closeModal = (): void => {
     width: 780px;
     min-height: 200px;
     background: var(--color-dark-middle);
-    border-radius: 8px;
+    border-radius: 40px;
     padding: 24px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 
@@ -90,7 +95,9 @@ const closeModal = (): void => {
 
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .modal-fade-enter-from,

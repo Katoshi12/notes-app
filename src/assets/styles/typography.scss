@@ -24,6 +24,10 @@ h2 {
   line-height: 72px;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+  @media (min-width: 320px) and (max-width: 360px) {
+    font-size: 32px;
+    line-height: 36px;
+  }
 }
 
 h3 {
@@ -40,7 +44,7 @@ h3 {
   }
 }
 
-  h4 {
+h4 {
   font-family: var(--font-family-primary);
   font-size: 24px;
   font-weight: 600;

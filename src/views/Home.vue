@@ -3,21 +3,14 @@
 <template>
   <section class="welcome">
     <div class="container welcome__content">
-
       <div class="welcome__text">
         <h1>Мои заметки</h1>
 
-        <h3>
-          Не забывай о важном, храни его в облаке.
-        </h3>
+        <h3>Не забывай о важном, храни его в облаке.</h3>
       </div>
 
       <div class="welcome__object">
-        <img
-          src="@/assets/icons/object.svg"
-          alt="object"
-          class="welcome__image"
-        />
+        <img src="@/assets/icons/object.svg" alt="object" class="welcome__image" />
       </div>
     </div>
   </section>
