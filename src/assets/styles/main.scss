@@ -46,5 +46,24 @@ body {
   margin-right: 8px;
 }
 
+.btn-rounded {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: var(--color-green-light);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out;
 
-.btn-rounded {}
+  &:hover {
+    background: var(--color-green-middle);
+  }
+
+  &:focus {
+    background: var(--color-green-dark);
+  }
+}
