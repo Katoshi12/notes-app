@@ -80,10 +80,6 @@ onMounted(() => {
     background: var(--color-green-dark);
     transform: scale(0.95);
   }
-
-  @media (min-width: 480px) and (max-width: 768px) {
-    right: 56px ;
-  }
 }
 
 .notes-container {
@@ -92,8 +88,8 @@ onMounted(() => {
   justify-content: center;
   align-items: start;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  @media (min-width: 1366px) {
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  @media (min-width: 1366px) and (max-width: 1920px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   @media (max-width: 768px) {

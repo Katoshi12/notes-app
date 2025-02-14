@@ -38,7 +38,7 @@ const handleDelete = async () => {
 <style scoped lang="scss">
 .note {
   position: relative;
-  width: 508px;
+  width: 388px;
   word-break: break-all;
   min-height: 300px;
   background: var(--color-green-light);
@@ -49,11 +49,9 @@ const handleDelete = async () => {
   flex-direction: column;
   justify-content: space-between;
   clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
-  @media (max-width: 768px) {
-    width: 688px;
-  }
-  @media (min-width: 320px) and (max-width: 480px) {
-    width: 290px;
+
+  @media (max-width: 360px) {
+    width: 300px;
   }
 
   &::after {
@@ -75,7 +73,8 @@ const handleDelete = async () => {
   }
 
   &__body {
-    padding:0 28px;
+    ;
+    padding-left: 28px;
     flex-grow: 1;
   }
 
